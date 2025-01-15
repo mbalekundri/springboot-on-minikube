@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "minicubeDemoChart.fullname" . }}
+  labels:
+    {{- include "minicubeDemoChart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "minicubeDemoChart.selectorLabels" . | nindent 4 }}
